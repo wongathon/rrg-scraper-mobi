@@ -53,15 +53,14 @@ rp(path).then( html => {
   return articles
 
 }).then( res => {
-  //console.log(res)
 
   Promise.all(res).then(vals => {
     console.log('heyo!')
-    //console.log(vals)
+    vals.shift()
 
     var bookData = {
 
-      'title'    : 'Seattle RRG Scrape',
+      'title'    : 'Seattle-RRG-Scrape',
       'creator'  : 'Andrew W',
       'publisher': 'noone',
       'subject'  : 'guides',
