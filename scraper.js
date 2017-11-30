@@ -36,48 +36,50 @@ rp(path).then( html => {
       let $ = cheerio.load(html)
       let arty = $('article.post')
       
-      data.title = arty.find('h1.post-title').text()
-      data.content = arty.find('div.post-content').html()
+      data['title'] = arty.find('h1.post-title').text()
+      data['author'] = 'no-one'
+      data['content'] = arty.find('div.post-content').html()
 
-
-      //console.log(data.title)
-      articles.push(data)
-
-      //console.log(articles.length)
+      return data
 
     }).catch(err => {
       console.log('fail2!')
-    })  
-    
-    article.then(dat => {
-      console.log(articles.length)
     })
+
+    articles.push(article)
 
   })//forEach
 
-  //return articles
+  return articles
 
 }).then( res => {
-  console.log(res)
+  //console.log(res)
 
-  // var bookData = {
+  Promise.all(res).then(vals => {
+    console.log('heyo!')
+    //console.log(vals)
 
-  //   'title'    : 'Seattle RRG Scrape',
-  //   'creator'  : 'Andrew W',
-  //   'publisher': 'noone',
-  //   'subject'  : 'guides',
+    var bookData = {
 
-  //   'sections' : [{
-  //     'title' : 'Posts',
-  //     'articles' : result // [{title, content},{}]
-  //   }]
-  // }
+      'title'    : 'Seattle RRG Scrape',
+      'creator'  : 'Andrew W',
+      'publisher': 'noone',
+      'subject'  : 'guides',
 
-  // htmlToMobi.create(bookData, {
-  //   target : '.' //create folder
-  // })
+      'sections' : [{
+        'title' : 'Posts',
+        'articles' : vals // [{title, content},{}]
+      }]
+    }
+
+    htmlToMobi.create(bookData, {
+      target : '.' //create folder
+    })
+
+  }).catch( err => {
+    console.log("fail!" + err)
+  })
 })
-
 .catch( err => {
   console.log("fail!")
 })
