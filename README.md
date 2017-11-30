@@ -1,6 +1,6 @@
-#Readme
+# Readme
 
-to run, install [Amazon kindlegen](https://www.amazon.com/gp/feature.html?docId=1000765211)
+To run, install [Amazon kindlegen](https://www.amazon.com/gp/feature.html?docId=1000765211)
 
 ```
 brew cask install kindlegen
